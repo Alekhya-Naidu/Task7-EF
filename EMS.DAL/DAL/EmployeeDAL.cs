@@ -31,6 +31,7 @@ public class EmployeeDAL : IEmployeeDAL
             var projectId = _masterDataDal.GetProjectFromName(employeeDetail.ProjectName)?.Id;
             var employee = new Employee
             {
+                Uid = employeeDetail.Uid,
                 FirstName = employeeDetail.FirstName,
                 LastName = employeeDetail.LastName,
                 Dob = employeeDetail.Dob,
@@ -67,6 +68,7 @@ public class EmployeeDAL : IEmployeeDAL
         var projectId = _masterDataDal.GetProjectFromName(employeeDetail.ProjectName)?.Id;
         var employee = new Employee
         {
+            Uid = employeeDetail.Uid,
             FirstName = employeeDetail.FirstName,
             LastName = employeeDetail.LastName,
             Dob = employeeDetail.Dob,
