@@ -21,13 +21,15 @@ public partial class AlekhyaEmployeeDbContext : DbContext
 
     public virtual DbSet<Location> Locations { get; set; }
 
+    public virtual DbSet<Manager> Managers { get; set; }
+
     public virtual DbSet<Project> Projects { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=10.0.0.27;Database=AlekhyaEmployeeDB;Integrated Security=true;Encrypt=False;");
+        => optionsBuilder.UseSqlServer("Server=10.0.0.27;Database=AlekhyaEmployeeDB;Integrated Security=true;Encrypt=false;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -44,11 +46,11 @@ public partial class AlekhyaEmployeeDbContext : DbContext
 
         modelBuilder.Entity<Employee>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Employee__3214EC07D5D75116");
+            entity.HasKey(e => e.Id).HasName("PK__Employee__3214EC07A8C9B1E8");
 
             entity.ToTable("Employee");
 
-            entity.HasIndex(e => e.Uid, "UQ__Employee__C5B69A4BB0DE559C").IsUnique();
+            entity.HasIndex(e => e.Uid, "UQ__Employee__C5B69A4B62FD859C").IsUnique();
 
             entity.Property(e => e.Dob).HasColumnName("DOB");
             entity.Property(e => e.Email)
@@ -69,23 +71,23 @@ public partial class AlekhyaEmployeeDbContext : DbContext
 
             entity.HasOne(d => d.Department).WithMany(p => p.Employees)
                 .HasForeignKey(d => d.DepartmentId)
-                .HasConstraintName("FK__Employee__Depart__25518C17");
+                .HasConstraintName("FK__Employee__Depart__4B7734FF");
 
             entity.HasOne(d => d.Location).WithMany(p => p.Employees)
                 .HasForeignKey(d => d.LocationId)
-                .HasConstraintName("FK__Employee__Projec__245D67DE");
+                .HasConstraintName("FK__Employee__Projec__4A8310C6");
 
             entity.HasOne(d => d.Manager).WithMany(p => p.InverseManager)
                 .HasForeignKey(d => d.ManagerId)
-                .HasConstraintName("FK__Employee__Manage__2739D489");
+                .HasConstraintName("FK__Employee__Manage__4D5F7D71");
 
             entity.HasOne(d => d.Project).WithMany(p => p.Employees)
                 .HasForeignKey(d => d.ProjectId)
-                .HasConstraintName("FK__Employee__Projec__282DF8C2");
+                .HasConstraintName("FK__Employee__Projec__4E53A1AA");
 
             entity.HasOne(d => d.Role).WithMany(p => p.Employees)
                 .HasForeignKey(d => d.RoleId)
-                .HasConstraintName("FK__Employee__RoleId__2645B050");
+                .HasConstraintName("FK__Employee__RoleId__4C6B5938");
         });
 
         modelBuilder.Entity<Location>(entity =>
@@ -97,6 +99,18 @@ public partial class AlekhyaEmployeeDbContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(30)
                 .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<Manager>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("Manager");
+
+            entity.Property(e => e.FirstName)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
         });
 
         modelBuilder.Entity<Project>(entity =>
@@ -112,7 +126,7 @@ public partial class AlekhyaEmployeeDbContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Role__3214EC0709038711");
+            entity.HasKey(e => e.Id).HasName("PK__Role__3214EC073BA82277");
 
             entity.ToTable("Role");
 
@@ -122,7 +136,7 @@ public partial class AlekhyaEmployeeDbContext : DbContext
 
             entity.HasOne(d => d.Department).WithMany(p => p.Roles)
                 .HasForeignKey(d => d.DepartmentId)
-                .HasConstraintName("FK__Role__Department__5BE2A6F2");
+                .HasConstraintName("FK__Role__Department__46B27FE2");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -242,13 +242,13 @@ public static class Program
         else
         {
             _console.PrintMsg("Select Manager:");
-            List<Employee> managers = _masterDataBAL.GetAllManagers();
+            List<Manager> managers = _masterDataBAL.GetAllManagers();
             foreach (var mgr in managers)
             {
                 _console.PrintMsg($"{mgr.FirstName}");
             }
             string managerInputName = Console.ReadLine()?.Trim();
-            Employee manager = managers.FirstOrDefault(m => $"{m.FirstName}".Equals(managerInputName, StringComparison.OrdinalIgnoreCase));
+            Manager manager = managers.FirstOrDefault(m => $"{m.FirstName}".Equals(managerInputName, StringComparison.OrdinalIgnoreCase));
             if (manager != null)
             {
                 managerName = manager.FirstName;
@@ -459,13 +459,13 @@ public static class Program
         else
         {
             _console.PrintMsg("Select Manager:");
-            List<Employee> managers = _masterDataBAL.GetAllManagers();
+            List<Manager> managers = _masterDataBAL.GetAllManagers();
             foreach (var mgr in managers)
             {
                 _console.PrintMsg($"{mgr.FirstName}");
             }
             string managerNameInput = Console.ReadLine()?.Trim();
-            Employee manager = managers.FirstOrDefault(m => $"{m.FirstName}".Equals(managerNameInput, StringComparison.OrdinalIgnoreCase));
+            Manager manager = managers.FirstOrDefault(m => $"{m.FirstName}".Equals(managerNameInput, StringComparison.OrdinalIgnoreCase));
             if (manager != null)
             {
                 managerName = manager.FirstName;

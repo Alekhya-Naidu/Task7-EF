@@ -24,9 +24,9 @@ public class MasterDataDAL : IMasterDataDal
         return _context.Departments.ToList();
     }
 
-    public List<Employee> GetAllManagers()
+    public List<Manager> GetAllManagers()
     {
-        return _context.Employees.Where(e => e.IsManager ).ToList();
+        return _context.Managers.ToList();
     }
 
     public List<Project> GetAllProjects()
@@ -44,9 +44,9 @@ public class MasterDataDAL : IMasterDataDal
         return _context.Departments.FirstOrDefault(d => d.Name == departmentName);
     }
 
-    public Employee GetManagerFromName(string managerName)
+    public Manager GetManagerFromName(string managerName)
     {
-        return _context.Employees.FirstOrDefault(e => e.FirstName == managerName && e.IsManager);
+        return _context.Managers.FirstOrDefault(m => m.FirstName == managerName);
     }
 
     public Project GetProjectFromName(string projectName)
@@ -66,7 +66,7 @@ public class MasterDataDAL : IMasterDataDal
 
     public string GetManagerNameById(int managerId)
     {
-        var manager =  _context.Employees.FirstOrDefault(e => e.Id == managerId);
+        var manager =  _context.Managers.FirstOrDefault(e => e.Id == managerId);
         if (manager != null)
         {
             return manager.FirstName;

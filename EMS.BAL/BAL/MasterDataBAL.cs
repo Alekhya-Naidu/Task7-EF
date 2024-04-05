@@ -25,7 +25,7 @@ public class MasterDataBAL : IMasterDataBal
         return _masterDataDAL.GetAllDepartments();
     }
     
-    public List<Employee> GetAllManagers()
+    public List<Manager> GetAllManagers()
     {
         return _masterDataDAL.GetAllManagers();
     }
@@ -45,7 +45,7 @@ public class MasterDataBAL : IMasterDataBal
         return _masterDataDAL.GetDepartmentFromName(departmentName);
     }
 
-    public Employee GetManagerFromName(string managerName)
+    public Manager GetManagerFromName(string managerName)
     {
         return _masterDataDAL.GetManagerFromName(managerName);
     }
